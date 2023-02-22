@@ -2,7 +2,29 @@ package Pattern;
 
 public class PatternQuestions22 {
     public static void main(String[] args) {
+        pattern1(5);
+        pattern2(5);
+        pattern3(5);
+        pattern4(5);
+        pattern5(5);
+        pattern6(5);
+        pattern7(5);
+        pattern8(5);
+        pattern9(5);
+        pattern10(5);
+        pattern11(5);
+        pattern12(5);
+        pattern13(5);
+        pattern14(5);
+        pattern15(5);
+        pattern16(5);
+        pattern17(5);
+        pattern18(5);
+        pattern19(5);
+        pattern20(5);
+        pattern21(5);
         pattern22(5);
+
     }
     public static void pattern1(int n){
         for (int i = 0; i < n; i++) {

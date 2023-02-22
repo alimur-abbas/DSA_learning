@@ -6,10 +6,13 @@ import java.util.*;
 
 public class PrintAnArray {
     public static void main(String[] args) {
-        int arr1[] = new int[]{1, 0, 1, 0, 0,1, 0, 0,0, 1};
-        // int arr2[] = new int[]{1,2,3,5};
-        //System.out.println(duplicateAll(arr ,6));
-        sortArrayOf0And1(arr1 ,10);
+        int arr1[] = new int[]{4,2,1,9,6};
+//        double ans = 3.2+0.1;
+       // System.out.println(ans);
+        insertionSort(arr1);
+//        long tempSol = squareRoot(15);
+       // System.out.println(" Second Maximum is  "+ secondMaxNumberWithoutSorting(arr1 , 5));
+       // System.out.println(" Maximum of Minimum  "+aggresiveCow(arr1 , 5 , 2));
     }
 
     public static void printArray(int arr[], int n) {
@@ -242,7 +245,322 @@ public class PrintAnArray {
         }
         printArray(a ,a.length);
     }
+    public static int binarySearch(int arr [] , int size , int key){
+        int start = 0 , end = size - 1;
+
+        while (start <= end){
+            //System.out.println(arr[mid]);
+//            int mid = (start + end) / 2; // it can result into some value out of integer range
+//            so we can use this to avoid above error
+            int mid = start + (end - start)/2;
+            if(arr[mid] == key){
+               return mid;
+            }
+            else{
+                // move to left side
+                if(arr[mid] >= key ){
+                    end = mid - 1;
+                    //System.out.println("End Changed to "+end);
+                }
+                // move to right side
+                else {
+                    start = mid + 1;
+                    //System.out.println("Start Changed to "+start);
+                }
+            }
+          //  mid = (start + end) / 2;
+        }
+        return -1;
+    }
+    public static int firstOccuUSingBS(int arr [] , int size , int key){
+        int start = 0 , end = size - 1 , ans =-1;
+        // why ans is -1 because if no match is found it will return -1
+
+        while (start <= end){
+            int mid = start + (end - start)/2;
+            if(arr[mid] == key){
+                ans = mid;
+                end = mid - 1;
+            }
+            else{
+                // move to left side
+                if(arr[mid] >= key ){
+                    end = mid - 1;
+                    //System.out.println("End Changed to "+end);
+                }
+                // move to right side
+                else {
+                    start = mid + 1;
+                    //System.out.println("Start Changed to "+start);
+                }
+            }
+            //  mid = (start + end) / 2;
+        }
+        return ans;
+    }
+    public static int lastOccuUSingBS(int arr [] , int size , int key){
+        int start = 0 , end = size - 1 , ans =-1;
+
+        while (start <= end){
+            int mid = start + (end - start)/2;
+            if(arr[mid] == key){
+                ans = mid;
+                start = mid + 1;
+            }
+            else{
+                // move to left side
+                if(arr[mid] >= key ){
+                    end = mid - 1;
+                    //System.out.println("End Changed to "+end);
+                }
+                // move to right side
+                else {
+                    start = mid + 1;
+                    //System.out.println("Start Changed to "+start);
+                }
+            }
+            //  mid = (start + end) / 2;
+        }
+        return ans;
+    }
+    public static  int peakOfMountainArray(int arr [] , int size){
+        int s = 0 , e = size - 1 ;
+        while(s<e) {
+            int m = s + (e - s) / 2;
+            if (arr[m] < arr[m+1]) s = m + 1;
+            else e = m;
+        }
+        return  s;
+    }
+    public static  int getPivotSmallest(int arr [] , int size){
+        int s = 0 , e = size - 1 ;
+        while(s<e) {
+            int m = s + (e - s) / 2;
+            if (arr[m] >= arr[0]) s = m + 1;
+            else e = m;
+        }
+        return  s;
+    }
+
+    public static  int getPivotLargest(int arr [] , int size){
+        int s = 0 , e = size - 1 ;
+        while(s<e) {
+            int m = s + (e - s) / 2;
+           if (arr[m] >= arr[0]) {
+                if(m == 0) s = m+1;// this extra if condition is required only to avoid infinite loop
+                else
+                s = m;
+            }
+            else e = m-1;
+//            if(arr[m] <= arr[size-1]) e = m - 1;
+//            else s = m;
+        }
+        return  arr[s];
+    }
+
+    public static  int searchInRotatedSortedArray(int arr [] , int size , int k){
+        int pivot = getPivotSmallest(arr , size);
+        System.out.println("pivot is "+ pivot);
+        int result = 0  ;
+        if(arr[pivot] <= k && k <= arr[size-1])
+         result =   binarySearch(arr , pivot , size-1 ,k);
+        else
+            result =   binarySearch(arr , 0 , pivot-1 ,k);
+        return result;
+    }
+    public static int binarySearch(int arr [] , int s , int e , int key){
+        int start = s , end = e;
+
+        while (start <= end){
+            //System.out.println(arr[mid]);
+//            int mid = (start + end) / 2; // it can result into some value out of integer range
+//            so we can use this to avoid above error
+            int mid = start + (end - start)/2;
+            if(arr[mid] == key){
+                return mid;
+            }
+            else{
+                // move to left side
+                if(arr[mid] >= key ){
+                    end = mid - 1;
+                    //System.out.println("End Changed to "+end);
+                }
+                // move to right side
+                else {
+                    start = mid + 1;
+                    //System.out.println("Start Changed to "+start);
+                }
+            }
+            //  mid = (start + end) / 2;
+        }
+        return -1;
+    }
+
+    public static long squareRoot(int n) {
+        long start = 0, end = n;
+        long mid = 0;
+        long ans = -1;
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            long square = mid * mid;
+            if (square == n) {
+                return mid;
+            } else if (square < n) {
+                ans = mid;
+                start = mid + 1;
+            } else end = mid - 1;
+
+        }
+        return ans;
+    }
+
+    public static double morePrecision(int n  , long temSol , int precision){
+        double fact = 1;
+        double ans = temSol;
+        for (int i = 0; i < precision; i++) {
+            fact /= 10;
+            for (double j = ans; j*j < n; j=j+fact) {
+
+                ans = j;
+                System.out.println(ans);
+                System.out.println("J value "+j);
+            }
+        }
+        return ans;
+    }
+
+    public static boolean isPossible(int arr[] , int n , int m , int mid){
+        int student = 1;
+        int pageSum = 0;
+        for (int i = 0; i < n; i++) {
+            if(pageSum+arr[i] <= mid){
+                pageSum += arr[i];
+            }
+            else{
+                student++;
+                if(student > m || arr[i] > mid) return false;
+                else pageSum = arr[i];
+            }
+        }
+        return true;
+    }
+
+    public static int bookAllocate(int arr[] , int numberOfBooks  , int numberOfStudent ){
+        int s = 0; int sum = 0 , ans = -1 ;
+        for (int i = 0; i < numberOfBooks; i++) {
+            sum += arr[i];
+        }
+        int mid =0;
+        int e = sum;
+        while (s<=e){
+            mid = s+(e-s)/2;
+            if(isPossible(arr , numberOfBooks , numberOfStudent , mid)){
+                ans = mid;
+                e = mid-1;
+            }
+            else{
+                s = mid + 1;
+            }
+        }
+        return ans;
+    }
 
 
+    public static boolean isPossibleAggresiveCow(int arr[] , int n , int m , int mid) {
+        int cow = 1;
+        int lastPos = arr[0];
+        for (int i = 0; i < n; i++) {
+            if (arr[i] - lastPos >= mid) {
+                cow++;
+                if (cow == m) return true;
+                lastPos = arr[i];
+            }
+        }
+        return false;
+    }
+
+
+    public static int aggresiveCow(int arr[] , int numberOfStalls  , int numberOfCows ){
+        int s = 0; int ans = -1 ;
+        Arrays.sort(arr);
+//        int maxi = Integer.MIN_VALUE;
+//        int mini = Integer.MAX_VALUE;
+//        for (int i = 0; i < numberOfStalls; i++) {
+//            if(arr[i] > maxi) maxi += arr[i];
+//
+//            if(arr[i] < mini ) mini += arr[i];
+//
+//        }
+        s = arr[0];
+        int mid =0;
+        int e = arr[numberOfStalls - 1] - s;
+        while (s<=e){
+            mid = s+(e-s)/2;
+            if(isPossibleAggresiveCow(arr , numberOfStalls , numberOfCows , mid)){
+                ans = mid;
+                s = mid + 1;
+            }
+            else{
+                e = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+
+    public static void selectionSort(int arr []){
+        int temp = 0 , minIndex = 0;
+        for (int i = 0; i < arr.length-1; i++) {
+                minIndex = i;
+            for(int j = i+1; j < arr.length; j++){
+                // suppose say arr[i] = 5 and arr[j] = 4 then it will swap moving forward now arr[j] = 2 then again it will swap which is not good pratice
+//                if(arr[j] < arr [i])
+//                {
+//                  temp = arr[i];
+//                  arr[i] = arr[j];
+//                  arr[j] = temp;
+//                }
+                // store the index of the min value and then swap for once
+                if(arr[j] < arr[minIndex]) minIndex = j;
+            }
+           if(arr[minIndex] != arr[i]){
+                temp = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = temp;
+            }
+
+        }
+        printArray(arr , arr.length);
+    }
+
+    public static void bubbleSort(int arr []){
+        int n = arr.length , temp = 0;
+        boolean swapped = false;
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-i-1; j++) {
+                if(arr[j] > arr[j+1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if(swapped == false) break;
+        }
+        printArray(arr , n);
+    }
+    public static  void insertionSort(int arr []){
+        for(int i = 1 ; i < arr.length ; i++){
+            int temp = arr[i];
+            int j = i-1;
+            while(j >= 0){
+                if(arr[j] > temp) arr[j+1] = arr[j];
+                else break;
+                j--;
+            }
+            arr[j+1] = temp;
+        }
+        printArray(arr , arr.length);
+    }
 }
 

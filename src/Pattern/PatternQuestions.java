@@ -4,7 +4,9 @@ public class PatternQuestions {
     public static void main(String[] args) {
 //        abovePattern();
 //        triangle();
-        pattenOneZero(5);
+        //pattenOneZero(5);
+        hammingWeight();
+        countOneBits();
     }
 
     //    1,2,3
@@ -215,7 +217,9 @@ public class PatternQuestions {
     //question might contain value as 11111101111011101110101010101010
     //i am checking for a small int value
     public static void countOneBits(){
-        int n = 00000000000000000000000000001011 , count=0;
+        //int n = 00000000000000000000000000001011 ;
+        int count=0;
+        int n = 7;
         System.out.println("N is :"+ n);
         while(n!=0){
             //checking last digit
@@ -228,7 +232,8 @@ public class PatternQuestions {
 
     }
     public  static int hammingWeight() {
-        int n =00000000000000000000000000001011;
+        //int n =00000000000000000000000000001011;
+        int n = 7;
         System.out.println(n);
         int bits = 0;
         int mask = 1;
