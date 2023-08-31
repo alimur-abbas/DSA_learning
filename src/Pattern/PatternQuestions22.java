@@ -24,6 +24,7 @@ public class PatternQuestions22 {
         pattern20(5);
         pattern21(5);
         pattern22(5);
+        replacaOfPattern17(4);
 
     }
     public static void pattern1(int n){
@@ -281,6 +282,23 @@ public class PatternQuestions22 {
                 horizontalMinDistance = Math.min(top ,bottom);
                  verticalMinDistance = Math.min(left , right);
                 System.out.print(n-Math.min(horizontalMinDistance , verticalMinDistance));
+            }
+            System.out.println();
+        }
+    }
+
+    public static void replacaOfPattern17(int n){
+        for(int i =1 ; i<=n ; i++){
+            //space
+            for(int space = n-i;space>0;space--){
+                System.out.print(" ");
+            }
+            //character
+            int element = 1;
+            for(int j = 1; j<=(2*i)-1; j++){
+                System.out.print(element);
+                if(j<i) element++; // or the condition can be element < i
+                else element--;
             }
             System.out.println();
         }

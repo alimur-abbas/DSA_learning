@@ -6,13 +6,10 @@ import java.util.*;
 
 public class PrintAnArray {
     public static void main(String[] args) {
-        int arr1[] = new int[]{4,2,1,9,6};
-//        double ans = 3.2+0.1;
-       // System.out.println(ans);
-        insertionSort(arr1);
-//        long tempSol = squareRoot(15);
-       // System.out.println(" Second Maximum is  "+ secondMaxNumberWithoutSorting(arr1 , 5));
-       // System.out.println(" Maximum of Minimum  "+aggresiveCow(arr1 , 5 , 2));
+        int arr1[] = new int[]{1,2,3,4};
+        int arr2[] = new int[]{2,5,6};
+
+        compress();
     }
 
     public static void printArray(int arr[], int n) {
@@ -562,5 +559,223 @@ public class PrintAnArray {
         }
         printArray(arr , arr.length);
     }
+
+    public static void mergeTwoSortedArray(int arr1 [] , int arr2 []){
+        int n = arr1.length;
+        int m = arr2.length;
+        int i = 0 , j = 0 ,index = 0;
+        int arr3 [] = new int[n+m];
+        while(i < n && j < m){
+            if(arr1[i] < arr2[j])
+                arr3[index++] = arr1[i++];
+            else
+                arr3[index++] = arr2[j++];
+        }
+        while(i < n)
+            arr3[index++] = arr1[i++];
+        while (j < m)
+            arr3[index++] = arr2[j++];
+        printArray(arr3 , arr3.length);
+
+        // T.C = O(n)
+        // S.C = O(N+M)
+    }
+
+    public static void mergeTwoSortedArrayIntoOne(int arr1 [] , int arr2 []){
+        int n = arr1.length;
+        int m = arr2.length;
+        int i = 0 , j = 0;
+            while(i < n ){
+                if(arr1[i] == 0)
+                    break;
+
+
+               if(arr1[i] < arr2[j])
+                   i++;
+               else{
+                   int temp = arr1[i];
+                   arr1[i++] = arr2[j];
+                   arr2[j] = temp;
+               }
+
+
+            }
+            while(i < n){
+                arr1[i++] = arr2[j++];
+            }
+            printArray(arr1 , arr1.length);
+            // T.C = O(N)
+            //S.C = O(1)
+
+    }
+
+    public static void moveZeroes(int arr []){
+        for(int j = 0 , i = 0; j < arr.length; j++){
+            if (arr[j] != 0){
+                int temp = arr [i];
+                arr[i++] = arr[j];
+                arr[j] = temp;
+
+            }
+        }
+        printArray(arr , arr.length);
+        // above logic can be used to sort the Array of 0 And 1 change if condition as == 0
+// This logic don't preserve the position of the elements
+//    int n = arr.length;
+//        int i = 0, j = n - 1;
+//        while (i <= j) {
+//            if (arr[i] != 0) i++;
+//            else if (arr[j] == 0) j--;
+//            else {
+//                int temp = arr[i];
+//                arr[i] = arr[j];
+//                arr[j] = temp;
+//            }
+//        }
+//        printArray(arr , arr.length);
+ }
+
+    public static void rotate(int[] nums, int k) {
+        int n = nums.length;
+        int temp [] = new int [n];
+        for(int i = 0; i < n; i++ ){
+            temp[(i+k)%n] = nums[i];
+        }
+        // copy the array
+        nums = temp.clone();
+        printArray(nums , nums.length);
+
+    }
+
+
+    public static void rotate1(int[] nums, int k) {
+
+        int rotation = k % nums.length;
+        rotate(nums, 0, nums.length - 1);
+        rotate(nums, 0, rotation-1);
+        rotate(nums, rotation, nums.length - 1);
+
+        printArray(nums, nums.length);
+    }
+    private static void rotate(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    public static boolean checkSortedRotated(int[] nums) {
+        int n = nums.length;
+        int count = 0;
+        for(int i = 1; i < n; i++  ) {
+            if(nums[i-1] > nums[i]) count++;
+        }
+        if(nums[n-1] > nums[0]) count++;
+        return count <= 1;
+    }
+
+    public static void sumOfTwoArray(int arr [] , int arr1 []){
+        int i = arr.length - 1;
+        int j = arr1.length - 1;
+        List<Integer> ans = new ArrayList<>();
+        int carry = 0;
+        while(i >= 0 && j >= 0){
+            int sum = arr[i]+arr1[j]+carry;
+            int digit = sum % 10;
+            carry = sum / 10;
+           ans.add(digit);
+            i--;
+            j--;
+        }
+        while(j >= 0) {
+            int sum = arr1[j]+carry;
+            int digit = sum % 10;
+            carry = sum / 10;
+            ans.add(digit);
+
+            j--;
+        }
+        while(i >= 0)
+        {
+            int sum = arr[i]+carry;
+            int digit = sum % 10;
+            carry = sum / 10;
+            ans.add(digit);
+
+            i--;
+        }
+        if(carry !=0) ans.add(carry);
+       Collections.reverse(ans);
+
+        System.out.println(ans);
+    }
+
+
+    public  static String removeOccurrences() {
+
+        String s = "aabababa";
+        String part = "aba";
+        while(s.contains(part)){
+            s = s.replace(part ,"");
+        }
+        return s;
+    }
+
+    public static String removeDuplicates() {
+        String s = "abbaca";
+        Stack<Character> st = new Stack<>();
+
+        for(int i=0;i<s.length();i++){
+            char curr = s.charAt(i);
+            if(st.isEmpty()){
+                st.push(curr);
+            }
+
+            else if(st.peek() == curr){
+                st.pop();
+            }else{
+                st.push(curr);
+            }
+
+        }
+        String n = "";
+        while(!st.isEmpty()){
+            n =st.pop()+ n  ;
+        }
+        System.out.println(n);
+        return n;
+    }
+
+    public static int compress() {
+        char[] chars = {'a','a','c','c','c','c','c','c','c','c','c', 'c','c','c'};
+        int count = 0;
+        int len = chars.length;
+        char prev = 0;
+        StringBuilder s = new StringBuilder();
+        for(int i = 0; i < len ; i++ ) {
+            if (s.length() == 0) {
+                s.append(chars[i]);
+                prev = chars[i];
+                count++;
+            } else if (prev == chars[i] ) {
+                count++;
+            } else {
+                prev = chars[i];
+                if (count > 1) {
+                    s.append(count);
+                    s.append(chars[i]);
+                    count = 1;
+                }
+            }
+            if(i+1 == len && count > 1) s.append(count);
+        }
+        System.out.println(s.toString());
+        return s.length();
+
+    }
+
 }
 
